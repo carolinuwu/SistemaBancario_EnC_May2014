@@ -1,0 +1,107 @@
+//
+// Created by ahreq on 5/5/2024.
+//
+
+#include "Banco.h"
+#include "Cuenta.h"
+
+#include<iostream>
+
+
+Banco::Banco(std::string nombre): m_nombre(nombre) {
+    this->inicializarMapa();
+
+}
+
+void Banco::inicializarMapa() {
+    m_clientesYcuentas = std::map<Cliente*, Cuenta*>{};
+}
+void Banco::agregarClienteYCuentaAlMapa(Cliente &cli, Cuenta &cuenta) {
+    bool tengoCliente = this->buscarCliente(cli);
+    if (tengoCliente) {
+        std::cout<<"Ya hay una cuenta asociada a ese cliente!";
+    }
+    else {
+std::cout<<"Agregando al cliente y la cuenta !";
+        m_clientesYcuentas.insert({&cli,&cuenta});
+    }
+}
+bool Banco:: eliminarCuenta(Cuenta& cuenta) {
+    bool pude = false;
+    auto iterador = m_clientesYcuentas.find(std::map<Cliente *, Cuenta *>::key_type(&cuenta));
+    if (iterador!=m_clientesYcuentas.end()) {
+        std::cout<<" ELIMINANDO LA CUENTA ! ";
+        m_clientesYcuentas.erase(iterador);
+        pude = true;
+
+    }
+    else {
+
+    }
+    return pude;
+}
+std::string Banco::getNombre() const {
+    return m_nombre;
+}
+Cuenta* Banco:: obtenerCuentaPorCliente(Cliente &cliente) {
+    return &*m_clientesYcuentas.at(&cliente);
+
+}
+std::vector<Cliente>  Banco:: obtenerClientes() {
+    std::vector<Cliente> clientesVector;
+    for(const auto &mapa : m_clientesYcuentas) {
+        clientesVector.push_back(*mapa.first); //para el vector
+    }
+    return clientesVector;
+}
+std::vector<Cuenta> Banco::obtenerCuentas() {
+    std::vector<Cuenta> cuentasVector;
+    for (const auto &mapa : m_clientesYcuentas) {
+        cuentasVector.push_back(*mapa.second);
+    }
+
+    return cuentasVector;
+}
+
+ bool Banco::buscarCliente(Cliente cli) {
+    std::vector<Cliente> clientes = this->obtenerClientes();
+  return m_buscadorClientes.buscarElemento(clientes,cli);
+}
+bool Banco::buscarCuenta(Cuenta *c) {
+    std::vector<Cuenta> cuentas = this->obtenerCuentas();
+    return m_buscadorCuentas.buscarElemento(cuentas,*c);
+}
+
+bool Banco::realizarTransferencia(Cuenta &origen, Cuenta &destino, double monto) {
+    bool sePudo = false;
+    origen.decrementarSaldo(monto);
+    destino.aumentarSaldo(monto);
+    sePudo = true;
+    return sePudo;
+}
+bool Banco::realizarRetiro(Cuenta &origen,double monto) {
+    bool sePudo = false;
+    origen.decrementarSaldo(monto);
+    sePudo = true;
+    return sePudo;
+}
+
+double Banco::informarDineroTotal() {
+    double montoTotal = 0;
+    std::vector<Cuenta> cuentasVector;
+    cuentasVector = this->obtenerCuentas();
+    for (int i = 0; i < cuentasVector.size(); ++i) {
+        montoTotal +=cuentasVector.at(i).consultarSaldo();
+    }
+    std::cout<<"El monto total en este banco es de : "<<montoTotal;
+    return montoTotal;
+}
+Banco::~Banco() {
+    for (auto& pair :m_clientesYcuentas) {
+        delete pair.second;
+    }
+
+}
+
+
+
