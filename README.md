@@ -1,4 +1,1 @@
-- Sistema bancario utilizando C++, queda agregarle alguna GUI para presentacion
-- El banco contaba con un mapa de cuentas por cliente, una cola fifo de transacciones a las que se añade un elemento cada vez que se realiza una transferencia y dos objetos genericos para obtener a partir de ellos vectores obtenidos a partir del mapa
-- (por  si se precisare por ejemplo procesar a todas las cuentas, listarlas,etc)
-- Tambien estaria bueno añadir cheques y mas funcionalidad a cada clase derivada de Cuenta, como soy lego en el tema bancario no quise errarle tanto añadiendo cosas que quizas no se condecian con la realidad
+ 
