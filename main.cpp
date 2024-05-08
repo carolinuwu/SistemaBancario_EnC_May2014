@@ -24,7 +24,7 @@ try {
     CuentaCorriente cuenta( 1240, titular, banco);
     //hice a Cuenta una clase abstracta ya que queria que hubiese dos tipos de cuenta, la cuenta corriente y la caja de ahorro
     //para esto defini una funcion virtual pura en Cuenta que fue calcularMonto()-> retorna un double
-
+//luego se definio otra para que en tiempo de ejecucion se muestre que instancia de Cuenta se estaba invocando 
 //muestro los datos de cuenta
     std::cout<<cuenta.mostrarDatosCuenta();
 //intento agregar a la cuenta y su cliente asociados al mapa que posee bancos de cuentas por cliente
