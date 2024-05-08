@@ -1,7 +1,6 @@
 //
-// Created by ahreq on 5/5/2024.
+// Created by carolina on 5/5/2024.
 //
-
 #ifndef BUSCADOR_H
 #define BUSCADOR_H
 
