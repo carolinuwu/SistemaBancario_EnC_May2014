@@ -5,20 +5,31 @@
 #include "Banco.h"
 #include "Cuenta.h"
 
+
+
 #include<iostream>
 
+#include "Transaccion.h"
 
-Banco::Banco(std::string nombre): m_nombre(nombre) {
+
+Banco::Banco(const std::string &nombre): m_nombre(nombre) {
+    if (nombre.length()==0) {
+        throw std::invalid_argument("EL NOMBRE DEL BANCO NO PUEDE ESTAR VACIO!");
+    }
     this->inicializarMapa();
+    this->inicializarCola();
 
 }
 
 void Banco::inicializarMapa() {
     m_clientesYcuentas = std::map<Cliente*, Cuenta*>{};
 }
+void Banco::inicializarCola() {
+    m_transaccionesRealizadas = std::queue<Transaccion>();
+}
+
 void Banco::agregarClienteYCuentaAlMapa(Cliente &cli, Cuenta &cuenta) {
-    bool tengoCliente = this->buscarCliente(cli);
-    if (tengoCliente) {
+    if (bool tengoCliente = this->buscarCliente(cli)) {
         std::cout<<"Ya hay una cuenta asociada a ese cliente!";
     }
     else {
@@ -54,31 +65,51 @@ std::vector<Cliente>  Banco:: obtenerClientes() {
     }
     return clientesVector;
 }
-std::vector<Cuenta> Banco::obtenerCuentas() {
-    std::vector<Cuenta> cuentasVector;
+std::vector<Cuenta*> Banco::obtenerCuentas() {
+    std::vector<Cuenta*> cuentasVector;
     for (const auto &mapa : m_clientesYcuentas) {
-        cuentasVector.push_back(*mapa.second);
+        cuentasVector.push_back(&*mapa.second);
     }
 
     return cuentasVector;
 }
 
  bool Banco::buscarCliente(Cliente cli) {
-    std::vector<Cliente> clientes = this->obtenerClientes();
+     const std::vector<Cliente> clientes = this->obtenerClientes();
   return m_buscadorClientes.buscarElemento(clientes,cli);
 }
 bool Banco::buscarCuenta(Cuenta *c) {
-    std::vector<Cuenta> cuentas = this->obtenerCuentas();
-    return m_buscadorCuentas.buscarElemento(cuentas,*c);
+    std::vector<Cuenta*> cuentas = this->obtenerCuentas();
+    return m_buscadorCuentas.buscarElemento(cuentas,&*c);
 }
 
 bool Banco::realizarTransferencia(Cuenta &origen, Cuenta &destino, double monto) {
     bool sePudo = false;
     origen.decrementarSaldo(monto);
     destino.aumentarSaldo(monto);
+this->generarTransferencia(&origen,&destino,monto);
+
     sePudo = true;
     return sePudo;
 }
+void Banco::generarTransferencia(Cuenta *origen, Cuenta *destino, double monto) {
+    m_transaccionesRealizadas.push(Transaccion(*origen,*destino,this,monto));
+}
+
+
+
+void Banco::mostrarTodasLasTransferencias() {
+  while (!m_transaccionesRealizadas.empty()) {
+      std::cout<< "Transaccion : ";
+      std::cout<<"\n ";
+      m_transaccionesRealizadas.front().mostrarme();
+      std::cout<<"\n ";
+      std::cout<<"------------------------------------------- ";
+        m_transaccionesRealizadas.pop();
+  }
+}
+
+
 bool Banco::realizarRetiro(Cuenta &origen,double monto) {
     bool sePudo = false;
     origen.decrementarSaldo(monto);
@@ -88,17 +119,18 @@ bool Banco::realizarRetiro(Cuenta &origen,double monto) {
 
 double Banco::informarDineroTotal() {
     double montoTotal = 0;
-    std::vector<Cuenta> cuentasVector;
-    cuentasVector = this->obtenerCuentas();
+    std::vector<Cuenta*> cuentasVector = this->obtenerCuentas();
     for (int i = 0; i < cuentasVector.size(); ++i) {
-        montoTotal +=cuentasVector.at(i).consultarSaldo();
+        montoTotal +=cuentasVector.at(i)->consultarSaldo();
     }
     std::cout<<"El monto total en este banco es de : "<<montoTotal;
     return montoTotal;
 }
 Banco::~Banco() {
-    for (auto& pair :m_clientesYcuentas) {
-        delete pair.second;
+    for (auto&[fst, snd] :m_clientesYcuentas) {
+        delete fst;
+        delete snd;
+
     }
 
 }

@@ -11,4 +11,9 @@ add_executable(SistemaBancarioC__ main.cpp
         Cuenta.cpp
         Cuenta.h
         Buscador.cpp
-        Buscador.h)
+        Buscador.h
+        CuentaCorriente.cpp
+        CuentaCorriente.h
+        Transaccion.cpp
+        Transaccion.h
+)

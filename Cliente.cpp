@@ -11,6 +11,12 @@ Cliente::Cliente(std::string nombre, std::string apellido, const Direccion &dire
         throw std::invalid_argument("Ni la edad ni el DNI pueden ser menores o iguales a 0 ");
     }
 }
+void Cliente::guardarNape(std::array<std::string, 2> nape) {
+    m_nombre = nape.at(0);
+    m_apellido = nape.at(1);
+}
+
+
 
 int Cliente::mostrarDni() const {
     return m_dni;

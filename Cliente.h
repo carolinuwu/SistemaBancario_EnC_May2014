@@ -5,6 +5,7 @@
 #ifndef CLIENTE_H
 #define CLIENTE_H
 #include <string>
+#include <array>
 
 struct Direccion {
     std::string calle;
@@ -17,6 +18,8 @@ struct Direccion {
 class Cliente {
 public:
     explicit Cliente(std::string nombre, std::string apellido, const Direccion& dire, int edad, int dni);
+ Cliente();
+    void guardarNape(std::array<std::string, 2> nape);
 
     int mostrarDni() const;
     std::string mostrarme() const;

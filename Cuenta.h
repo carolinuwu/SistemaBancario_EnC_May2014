@@ -11,13 +11,14 @@
 
 class Cuenta {
 public:
-    explicit Cuenta(int cuenta, double saldo, Cliente titular, Banco& banco);
+    explicit Cuenta( double saldo, Cliente titular, Banco& banco);
 
     bool aumentarSaldo(double nuevoSaldo);
     bool decrementarSaldo(double cantidad);
-    double consultarSaldo() const;
-    std::string mostrarDatosCuenta() const;
+     [[nodiscard]] double consultarSaldo() const;
+    [[nodiscard]] std::string mostrarDatosCuenta() const;
     bool operator==(const Cuenta& otraCuenta) const;
+    double virtual  montoAaAbonar()= 0;
     ~Cuenta();
 
 
@@ -27,6 +28,8 @@ private:
     double m_saldo;
     Cliente m_titular;
     Banco& m_banco;
+    //agrego esto para q al instanciarse una cuenta su nro sea equivalente al numero de instancia en q este manejando el programa
+    static int contadorInstancias;
 };
 
 

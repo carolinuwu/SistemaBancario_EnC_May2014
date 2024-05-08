@@ -10,7 +10,6 @@
 
 template<class T>
 class Buscador {
-
 public:
     bool buscarElemento(const std::vector<T> &elementos, const T& elementoBuscado) const {
         //recordar q 1-> true, 0 -> false.
@@ -18,6 +17,12 @@ public:
         bool loTengo = (elementoBscado!=elementos.end());
         return loTengo;
     }
+    bool buscarElemento(const std::vector<T*> &elementos, const T* elementoBuscado) const {
+        auto elementoEncontrado = std::find(elementos.begin(), elementos.end(), elementoBuscado);
+        return (elementoEncontrado != elementos.end());
+    }
+
+
 };
 
 
