@@ -85,11 +85,12 @@ bool Banco::buscarCuenta(Cuenta *c) {
 
 bool Banco::realizarTransferencia(Cuenta &origen, Cuenta &destino, double monto) {
     bool sePudo = false;
-    origen.decrementarSaldo(monto);
-    destino.aumentarSaldo(monto);
-this->generarTransferencia(&origen,&destino,monto);
-
-    sePudo = true;
+    if (this->buscarCuenta(&origen) && this->buscarCuenta(&destino)==1 ) {
+        origen.decrementarSaldo(monto);
+        destino.aumentarSaldo(monto);
+        this->generarTransferencia(&origen,&destino,monto);
+        sePudo = true;
+    }
     return sePudo;
 }
 void Banco::generarTransferencia(Cuenta *origen, Cuenta *destino, double monto) {

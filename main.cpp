@@ -24,6 +24,8 @@ try {
     CuentaCorriente cuenta( 1240, titular, banco);
     //hice a Cuenta una clase abstracta ya que queria que hubiese dos tipos de cuenta, la cuenta corriente y la caja de ahorro
     //para esto defini una funcion virtual pura en Cuenta que fue calcularMonto()-> retorna un double
+    //posteriormente se definio otra para hacer uso de algo equivalente al this.getClass().getSimpleName() de la api de Reflection en Java
+
 
 //muestro los datos de cuenta
     std::cout<<cuenta.mostrarDatosCuenta();
