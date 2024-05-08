@@ -1,2 +1,1 @@
-- Sistema bancario utilizando C++, queda agregarle alguna GUI para presentacion
-- 
+ 
