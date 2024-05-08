@@ -4,6 +4,7 @@
 #include "Cliente.h";
 #include<vector>;
 
+#include "CajaDeAhorro.h"
 #include "CuentaCorriente.h"
 
 
@@ -29,7 +30,7 @@ try {
 //intento agregar a la cuenta y su cliente asociados al mapa que posee bancos de cuentas por cliente
     banco.agregarClienteYCuentaAlMapa(titular,cuenta);
     Cliente titular2("Ruben ", "xd", d, 29, 111111);
-    CuentaCorriente cuenta2(1, titular2, banco);
+  CajaDeAhorro cuenta2(1, titular2, banco);
     //intento agregarle otra cuenta a alguien q ya posee una
     std::cout<<"\n";
     banco.agregarClienteYCuentaAlMapa(titular,cuenta2);

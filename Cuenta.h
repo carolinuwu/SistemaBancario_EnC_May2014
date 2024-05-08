@@ -16,9 +16,15 @@ public:
     bool aumentarSaldo(double nuevoSaldo);
     bool decrementarSaldo(double cantidad);
      [[nodiscard]] double consultarSaldo() const;
-    [[nodiscard]] std::string mostrarDatosCuenta() const;
+    [[nodiscard]] std::string mostrarDatosCuenta() ;
     bool operator==(const Cuenta& otraCuenta) const;
+    //como no encontre algo equivalente al this.getClass().getSimpleName()
+    std::string virtual mostrarNombreInstancia()=0;
     double virtual  montoAaAbonar()= 0;
+    //En el caso de la cuenta corriente p.ej podria ser un producto entre los intereses devengados
+    //* un monto que se solicito al banco
+    // en el caso de caja de ahorro podria ser un monto fijo
+
     ~Cuenta();
 
 

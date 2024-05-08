@@ -16,4 +16,6 @@ add_executable(SistemaBancarioC__ main.cpp
         CuentaCorriente.h
         Transaccion.cpp
         Transaccion.h
+        CajaDeAhorro.cpp
+        CajaDeAhorro.h
 )
