@@ -127,12 +127,7 @@ double Banco::informarDineroTotal() {
     std::cout<<"El monto total en este banco es de : "<<montoTotal;
     return montoTotal;
 }
-Banco::~Banco() {
-    for (auto&[fst, snd] :m_clientesYcuentas) {
-        delete fst;
-        delete snd;
-
-    }
+ 
 
 }
 
