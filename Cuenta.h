@@ -25,7 +25,7 @@ public:
     //* un monto que se solicito al banco
     // en el caso de caja de ahorro podria ser un monto fijo
 
-    ~Cuenta();
+   
 
 
 
