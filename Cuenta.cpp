@@ -54,8 +54,3 @@ bool Cuenta::operator==(const Cuenta &otraCuenta) const{
     return this->m_nroCuenta == otraCuenta.m_nroCuenta;
 }
 
-
-Cuenta::~Cuenta() {
-    m_banco.eliminarCuenta(*this);
-
-}
