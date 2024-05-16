@@ -27,7 +27,7 @@ public:
     bool realizarRetiro(Cuenta &origen, double monto);
     double informarDineroTotal();
     void mostrarTodasLasTransferencias();
-    ~Banco();
+    
 
 
 private:
